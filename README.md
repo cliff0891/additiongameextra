@@ -1,11 +1,12 @@
 # Addition Game using  methods and for loops
-Writing an addition game this using methods and for loops.The user will be asked a simple math problem in the first round. For example, to add two single digit numbers. If the user gets this correct, they will be given points and asked a more difficult math problem in round 2, such as adding a pair of two digit numbers. They will receive more points and be asked more difficult questions in the following round for every correct answer. Every incorrect answer will be followed by a more simple question. There should be a total of 4 rounds. At the end of 4 rounds, the code should print the final score.
+Writing an addition game using methods, for loops and array.The user will be asked a simple math problem in the first round. For example, to add two single digit numbers. If the user gets this correct, they will be given points and asked a more difficult math problem in round 2, such as adding a pair of two digit numbers. They will receive more points and be asked more difficult questions in the following round for every correct answer. Every incorrect answer will be followed by a more simple question. There should be a total of 4 rounds. At the end of 4 rounds, the code should print the final score.
 
 ## Outline
 ```
 //import java.util.Scanner;
 //Create variables used throughout the code
 //use the boolean data to verify the answer
+// use array to sort numbers
 //use the If statement to determine correct or incorrect answer.
 //If the answer is correct, increase the score by 10, else if incorrect, leave it alone and continue to the next round
 //use print statement after the final round to print output score
@@ -23,139 +24,80 @@ import java.util.Scanner;
 
 public class additiongameextra {
 
+	public static void main(String[] args) {
+		//System.out.println("Hello class.");
+		
+		//Call the addition game method.
+		AdditonGameMethod();
+	}
+	public static void AdditonGameMethod() {
+		//System.out.println("Inside the addition game method.");
+		
+		int[] gameVariables = new int[4];
+		gameVariables[0] = 5; //hardness;
+		//int hardness = gameVariables[0];
+		gameVariables[1] = 2; //hardnessStep;
+		//int hardnessStep = 2;
+		gameVariables[2] = 0; //score;
+		//int score = 0;
+		gameVariables[3] = 0; // 1 for true, 0 for false
+		
+		// Set up my for loop to go through the number of rounds
+		int numberOfRounds = 3;
+		for(int roundNumber = 1; 
+		roundNumber <= numberOfRounds;  
+		roundNumber = roundNumber + 1){
+			//System.out.println("Inside the for loop. Round: " + roundNumber);
+			System.out.print("Round " + roundNumber + " of " + numberOfRounds + ". ");
+			gameVariables = getAndCheckStudentAnswer(gameVariables);
+			if(gameVariables[3] == 1){
+				System.out.print("Your score was " + gameVariables[2] + " and is now ");
+				gameVariables[2] = gameVariables[2] + gameVariables[0];
+				System.out.print(gameVariables[2] + ". ");
+				
+				if(roundNumber<numberOfRounds){
+					System.out.print("Your hardness was " + gameVariables[0] + " and is now ");
+					gameVariables[0] = gameVariables[0] * gameVariables[1];
+					System.out.println(gameVariables[0] + ".");
+				}
+			}else{
+				System.out.print("Your score is " + gameVariables[2] + ". ");
+				if(roundNumber<numberOfRounds){
+					System.out.print("Your hardness was " + gameVariables[0] + " and is now ");
+					if(gameVariables[0]>5){
+						gameVariables[0] = gameVariables[0] / gameVariables[1];
+					}
+					System.out.println(gameVariables[0] + ".");
+					
+				}
+				
+			}
+		}
+		System.out.print("\nThe game is complete. ");
+		System.out.println("Your final score was " + gameVariables[2] );
+	}
 	
-	
-	//These are variables used throughout all methods
-    public static int numberOfRounds        = 4;
-    public static int score                 = 0;
-    public static int hardnessOfQuestion    = 10;
-    public static int correctAnswer;
-    public static Scanner input             = new Scanner(System.in);
-
-    public static void main(String[] args) {    
-
-        for(int i=1;i<numberOfRounds+1;i++){
-
-            outputMessage("Round " + i + ". Begin.");
-
-            if ( correctAnswer() ){         
-                outputMessage("Answer was correct.");           
-                increaseScoreByHardness(hardnessOfQuestion);
-                outputScore();
-                increaseHardnessByFactor(10);           
-            }else{
-                outputMessage("Answer was not correct");            
-                outputCorrectAnswer();
-
-                if(hardnessOfQuestion>10){
-                    decreaseHardnessByFactor(10);
-                }
-            }           
-
-            if(i<numberOfRounds){
-                outputMessage("End of round " + i);     
-            }else{
-                outputMessage("End of final round");
-            }
-        }   //End For Loop
-
-        outputMessage("Thanks for playing!");
-        outputMessage("Out of " + numberOfRounds + " total rounds...");
-        outputFinalScore();
-
-    }   //End Main Method
-
-    public static boolean correctAnswer(){
-        int number1 = randNumByHardness(hardnessOfQuestion);        
-        int number2 = randNumByHardness(hardnessOfQuestion);
-
-        int correctAnswer = number1 + number2;
-
-        System.out.println("What is " + number1 + " + " + number2 + "?");
-        System.out.println("Please answer in integers only.");
-
-        int studentAnswer = input.nextInt();
-
-        if(studentAnswer == correctAnswer){
-            return true;
-        }else{
-            return false;
-        }       
-    }
-
-    public static int randNumByHardness(int hardness){
-        return (int)(Math.random() * hardness);
-    }
-
-    public static void increaseHardnessByFactor(int number){
-        hardnessOfQuestion *= number;
-    }
-
-    public static void decreaseHardnessByFactor(int number){
-        hardnessOfQuestion /= number;
-    }
-
-    public static void increaseScoreByHardness(int hardness){
-        score += hardness;
-    }
-
-    public static void outputScore(){
-        System.out.println("Your current score is: " + score);
-    }
-
-    public static void outputFinalScore(){
-        System.out.println("Your final score is: " + score);
-        if(score==0){
-            System.out.println("Were you even trying?");
-        }
-    }
-
-    public static void outputHardness(){
-        System.out.println("Current hardness is: " + hardnessOfQuestion);
-    }
-
-    public static void outputMessage(String message){
-        System.out.println(message);
-    }
-
-    public static void outputCorrectAnswer(){
-        System.out.println("The correct answer was: " + correctAnswer);
-    }
+	public static int[] getAndCheckStudentAnswer(int[] gameVariables) {
+		//System.out.println("Inside get and check student answer method.");
+		int number1 = (int)(Math.random()*gameVariables[0]);
+		int number2 = (int)(Math.random()*gameVariables[0]);
+		System.out.print("Add " + number1 + " and " + number2 +": ");
+		//Scanner input = new Scanner(System.in);
+		//int studentAnswer = input.nextInt();
+		Scanner get = new Scanner(System.in);
+		int studentAnswer = get.nextInt();
+		if(studentAnswer == (number1 + number2)){
+			System.out.print("Correct. ");
+			gameVariables[3] = 1;
+			
+		}else{
+			System.out.println("Nice try, but the correct answer was " 
+					+ (number1 + number2) + ".");
+			gameVariables[3] = 0;
+		}
+		return gameVariables;
+	}
 }
-```
-## Console output
-```
-Round 1. Begin.
-What is 3 + 8?
-Please answer in integers only.
-11
-Answer was correct.
-Your current score is: 10
-End of round 1
-Round 2. Begin.
-What is 16 + 61?
-Please answer in integers only.
-77
-Answer was correct.
-Your current score is: 110
-End of round 2
-Round 3. Begin.
-What is 485 + 466?
-Please answer in integers only.
-951
-Answer was correct.
-Your current score is: 1110
-End of round 3
-Round 4. Begin.
-What is 1163 + 4805?
-Please answer in integers only.
-5968
-Answer was correct.
-Your current score is: 11110
-End of final round
-Thanks for playing!
-Out of 4 total rounds...
-Your final score is: 11110
 ```
 ## Command prompt
 
@@ -424,4 +366,5 @@ To https://github.com/cliff0891/additiongameextra.git
 D:\COMSC\additionGameExtra>
 
 ## Summary
+the main method calls a greeting method in the print statement and also calls the addition game method. the main method has no output and input variables. the game method has an internal variables of array called gameVariables. it	Calls the getAndCheckStudentAnswer method and Prints out the score for each round using a for loop.
 First of all i want ot comment on the fact methods make our lives easier. The first addition game that i wrote was way too long because each round came with its own outline and formulas though the same things repeating over and over agian thus making it too lengthy. But using methods and for loop, it took me just a few lines and the code was done and running well. using methods makes the work easier and less time consuming because you can create the variables to use throughout your code without necessarilly reapeating them. You can also use a for loop to loop through the number of rounds defined in the beginning of the code. With for loop you don't have to repeat methods, and variables in every round.it saves time from copying and pasting all the times. 
