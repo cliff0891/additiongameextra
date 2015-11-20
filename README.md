@@ -1,4 +1,4 @@
-# Addition Game using  methods and for loops
+# Addition Game using  methods, for loops and array
 Writing an addition game using methods, for loops and array.The user will be asked a simple math problem in the first round. For example, to add two single digit numbers. If the user gets this correct, they will be given points and asked a more difficult math problem in round 2, such as adding a pair of two digit numbers. They will receive more points and be asked more difficult questions in the following round for every correct answer. Every incorrect answer will be followed by a more simple question. There should be a total of 4 rounds. At the end of 4 rounds, the code should print the final score.
 
 ## Outline
@@ -99,13 +99,24 @@ public class additiongameextra {
 	}
 }
 ```
+## Console 
+```
+Round 1 of 3. Add 2 and 2: 4
+Correct. Your score was 0 and is now 5. Your hardness was 5 and is now 10.
+Round 2 of 3. Add 4 and 3: 7
+Correct. Your score was 5 and is now 15. Your hardness was 10 and is now 20.
+Round 3 of 3. Add 8 and 17: 25
+Correct. Your score was 15 and is now 35. 
+The game is complete. Your final score was 35
+```
+
 ## Command prompt
 
 76054_n.jpg
 01/05/2015  04:13 PM           497,101 1506336_216039838583295_1045764802_o.jpg
 01/05/2015  04:13 PM            65,835 10686647_300680306785914_5558296860754913
 494_n.jpg
-11/08/2015  02:23 PM    <DIR>          persuasive speech
+11/19/2015  02:23 PM    <DIR>          persuasive speech
               22 File(s)      2,231,615 bytes
               19 Dir(s)  459,680,776,192 bytes free
 
